@@ -43,6 +43,10 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+app.use("/", express.static(path.join(__dirname, "FrontEnd-dist")));
+app.use("/dashboard", express.static(path.join(__dirname, "dashboard-dist")));
+
+
 app.post("/signup", async (req, res) => {
   try {
     const { email, username, password } = req.body;
