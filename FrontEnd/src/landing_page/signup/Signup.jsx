@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Mail, User, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +20,7 @@ const Signup = () => {
     setError("");
 
     try {
-      const res = await fetch("https://zerodha-clone-6al2.onrender.com/signup", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -31,7 +30,7 @@ const Signup = () => {
 
       if (res.ok) {
         alert("Signup successful! Please login.");
-        navigate("/login"); 
+        navigate("/login");
       } else {
         setError(data.message || "Signup failed");
       }
