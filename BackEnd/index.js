@@ -16,7 +16,10 @@ const path = require("path");
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174",
+    "https://zerodha-frontend-xvgh.onrender.com",  
+  "https://zerodha-clone-1-cega.onrender.com" 
+];
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {

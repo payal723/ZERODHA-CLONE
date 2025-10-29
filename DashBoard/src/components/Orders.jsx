@@ -18,7 +18,8 @@ const Orders = () => {
           return;
         }
         const config = { headers: { 'Authorization': `Bearer ${token}` } };
-        const res = await axios.get("http://localhost:3002/api/orders", config);
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
+        const res = await axios.get(`${backendUrl}/api/orders`, config);
         setOrders(res.data);
       } catch (err) {
         setError("Failed to fetch orders.");
@@ -63,9 +64,7 @@ const Orders = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-right">{order.qty}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-right">{order.price.toFixed(2)}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-center">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                    order.mode === 'BUY' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                  }`}>
+                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${order.mode === 'BUY' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                     {order.mode}
                   </span>
                 </td>

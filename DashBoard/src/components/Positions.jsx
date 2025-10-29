@@ -17,7 +17,8 @@ const Positions = () => {
           return;
         }
         const config = { headers: { 'Authorization': `Bearer ${token}` } };
-        const res = await axios.get("http://localhost:3002/api/positions", config);
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
+        const res = await axios.get(`${backendUrl}/api/positions`, config);
         setPositions(res.data);
       } catch (err) {
         setError("Failed to fetch positions.");
@@ -59,12 +60,8 @@ const Positions = () => {
                     <td className="px-4 py-4 text-right">{stock.qty}</td>
                     <td className="px-4 py-4 text-right">{stock.avg.toFixed(2)}</td>
                     <td className="px-4 py-4 text-right">{stock.price.toFixed(2)}</td>
-                    <td className={`px-4 py-4 text-right font-semibold ${isProfit ? 'text-green-600' : 'text-red-600'}`}>
-                      {pnl.toFixed(2)}
-                    </td>
-                    <td className={`px-4 py-4 text-right ${stock.isLoss ? 'text-red-600' : 'text-green-600'}`}>
-                      {stock.day}
-                    </td>
+                    <td className={`px-4 py-4 text-right font-semibold ${isProfit ? 'text-green-600' : 'text-red-600'}`}>{pnl.toFixed(2)}</td>
+                    <td className={`px-4 py-4 text-right ${stock.isLoss ? 'text-red-600' : 'text-green-600'}`}>{stock.day}</td>
                   </tr>
                 );
               })}

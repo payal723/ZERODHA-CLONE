@@ -18,7 +18,8 @@ const Holdings = () => {
           return;
         }
         const config = { headers: { 'Authorization': `Bearer ${token}` } };
-        const res = await axios.get("http://localhost:3002/allHoldings", config);
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
+        const res = await axios.get(`${backendUrl}/allHoldings`, config);
         setAllHoldings(res.data);
       } catch (err) {
         setError("Failed to fetch holdings data.");
@@ -39,8 +40,6 @@ const Holdings = () => {
         label: 'Investment Value (₹)',
         data: allHoldings.map(stock => stock.avg * stock.qty),
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        borderColor: 'rgba(53, 162, 235, 1)',
-        borderWidth: 1,
       },
     ],
   };
@@ -80,16 +79,11 @@ const Holdings = () => {
                 );
               })
             ) : (
-              <tr>
-                <td colSpan="6" className="text-center p-10 text-gray-500">
-                  You have no holdings yet.
-                </td>
-              </tr>
+              <tr><td colSpan="6" className="text-center p-10 text-gray-500">You have no holdings yet.</td></tr>
             )}
           </tbody>
         </table>
       </div>
-
       {allHoldings.length > 0 && (
         <div className="p-4 border rounded-lg bg-white">
           <VerticalGraph chartData={chartData} />

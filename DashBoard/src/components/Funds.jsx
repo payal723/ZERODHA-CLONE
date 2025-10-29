@@ -16,11 +16,11 @@ const Funds = () => {
         return;
       }
       const config = { headers: { 'Authorization': `Bearer ${token}` } };
-      const res = await axios.get("http://localhost:3002/api/funds", config);
+      const backendUrl = import.meta.env.VITE_BACKEND_URL;
+      const res = await axios.get(`${backendUrl}/api/funds`, config);
       setFundsData(res.data);
     } catch (err) {
       setError("Failed to fetch funds data.");
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -39,26 +39,18 @@ const Funds = () => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { 'Authorization': `Bearer ${token}` } };
-      const res = await axios.post("http://localhost:3002/api/funds/add", { amount: parseFloat(amount) }, config);
+      const backendUrl = import.meta.env.VITE_BACKEND_URL;
+      const res = await axios.post(`${backendUrl}/api/funds/add`, { amount: parseFloat(amount) }, config);
       alert(res.data.message);
       fetchFunds();
     } catch (err) {
       alert("Failed to add funds.");
-      console.error(err);
     }
   };
 
-  if (loading) {
-    return <div className="p-4">Loading funds...</div>;
-  }
-
-  if (error) {
-    return <div className="p-4 text-red-500">{error}</div>;
-  }
-
-  if (!fundsData) {
-    return <div className="p-4">No funds data available.</div>;
-  }
+  if (loading) return <div className="p-4">Loading funds...</div>;
+  if (error) return <div className="p-4 text-red-500">{error}</div>;
+  if (!fundsData) return <div className="p-4">No funds data available.</div>;
 
   return (
     <>
@@ -67,7 +59,6 @@ const Funds = () => {
         <button onClick={handleAddFunds} className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">Add funds</button>
         <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Withdraw</button>
       </div>
-
       <div className="flex flex-col md:flex-row gap-8">
         <div className="flex-1">
           <h3 className="text-xl font-light mb-4 text-gray-700">Equity</h3>
@@ -86,7 +77,6 @@ const Funds = () => {
             </div>
           </div>
         </div>
-
         <div className="flex-1">
           <h3 className="text-xl font-light mb-4 text-gray-700">Commodity</h3>
           <div className="border rounded-lg p-6 bg-white text-center">

@@ -17,8 +17,9 @@ const SellActionWindow = ({ uid }) => {
     }
     const config = { headers: { 'Authorization': `Bearer ${token}` } };
     const orderData = { name: uid, qty: stockQuantity, price: stockPrice };
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-    axios.post("http://localhost:3002/sellOrder", orderData, config)
+    axios.post(`${backendUrl}/sellOrder`, orderData, config)
       .then(response => {
         alert(response.data.message);
         if (GeneralContextValue && GeneralContextValue.closeSellWindow) {
@@ -56,10 +57,10 @@ const SellActionWindow = ({ uid }) => {
             </fieldset>
           </div>
           <div className="flex justify-between items-center pt-3 border-t">
-            <span className="text-sm text-gray-600 font-medium">Available shares: X</span>
+            <span className="text-sm">Available shares: X</span>
             <div className="flex space-x-2">
-              <button onClick={handleSellClick} className="px-5 py-2 bg-red-600 text-white font-semibold rounded shadow-md hover:bg-red-700">Sell</button>
-              <button onClick={handleCancelClick} className="px-5 py-2 bg-gray-200 text-gray-800 rounded">Cancel</button>
+              <button onClick={handleSellClick} className="px-5 py-2 bg-red-600 text-white rounded">Sell</button>
+              <button onClick={handleCancelClick} className="px-5 py-2 bg-gray-200 rounded">Cancel</button>
             </div>
           </div>
         </div>
