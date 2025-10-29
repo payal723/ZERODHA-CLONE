@@ -11,6 +11,7 @@ const { HoldingsModel } = require("./model/HoldingsModel");
 const { OrdersModel } = require("./model/OrdersModel");
 const { PositionsModel } = require("./model/PositionsModel");
 const { FundsModel } = require("./model/FundsModel");
+const path = require("path");
 
 const app = express();
 app.use(express.json());
