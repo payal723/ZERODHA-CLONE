@@ -21,7 +21,7 @@ const Signup = () => {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:3002/signup", {
+      const res = await fetch("https://zerodha-clone-6al2.onrender.com/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
