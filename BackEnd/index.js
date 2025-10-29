@@ -17,7 +17,8 @@ const app = express();
 app.use(express.json());
 
 const allowedOrigins = ["http://localhost:5173", "http://localhost:5174",
-    "https://zerodha-frontend-xvgh.onrender.com",  
+    "https://zerodha-frontend-xvgh.onrender.com", 
+    "https://zerodha-clone-6al2.onrender.com", 
   "https://zerodha-clone-1-cega.onrender.com" 
 ];
 app.use(cors({
@@ -48,7 +49,7 @@ const authenticateToken = (req, res, next) => {
 };
 
 app.use("/", express.static(path.join(__dirname, "FrontEnd-dist")));
-app.use("/dashboard", express.static(path.join(__dirname, "dashboard-dist")));
+app.use("/dashboard", express.static(path.join(__dirname, "dist")));
 
 
 app.post("/signup", async (req, res) => {
