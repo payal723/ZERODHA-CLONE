@@ -22,7 +22,7 @@ const Header = ({ user }) => {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center gap-8">
             <Link to="/">
-              <img src="/logo.svg" alt="Logo" className="h-5" /> 
+              <img src="/logo.png" alt="Logo" className="h-5" /> 
             </Link>
             <div className="hidden md:flex items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
