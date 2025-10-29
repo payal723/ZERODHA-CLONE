@@ -17,7 +17,8 @@ const Summary = ({ user }) => {
           return;
         }
         const config = { headers: { 'Authorization': `Bearer ${token}` } };
-        const res = await axios.get("http://localhost:3002/api/summary", config);
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
+        const res = await axios.get(`${backendUrl}/api/summary`, config);
         setSummaryData(res.data);
       } catch (err) {
         setError("Failed to fetch summary data.");
@@ -38,7 +39,7 @@ const Summary = ({ user }) => {
   }
 
   if (!summaryData) {
-    return <div>Could not load summary.</div>
+    return <div>Could not load summary.</div>;
   }
   
   const pnl = summaryData.currentValue - summaryData.totalInvestment;

@@ -17,7 +17,8 @@ const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
 
   if (!token) {
-    window.location.href = 'http://localhost:5173/login';
+    const loginUrl = import.meta.env.VITE_LOGIN_URL || 'http://localhost:5173/login';
+    window.location.href = loginUrl;
     return null;
   }
 

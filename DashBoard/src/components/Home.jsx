@@ -13,19 +13,22 @@ const Home = () => {
       setLoading(true);
       setError(null);
       const token = localStorage.getItem('token');
+      
+      const loginUrl = import.meta.env.VITE_LOGIN_URL || 'http://localhost:5173/login';
+      const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
       if (!token) {
-        window.location.href = 'http://localhost:5173/login';
+        window.location.href = loginUrl;
         return;
       }
       try {
         const config = { headers: { 'Authorization': `Bearer ${token}` } };
-        const backendUrl = import.meta.env.VITE_BACKEND_URL;
         const res = await axios.get(`${backendUrl}/api/me`, config);
         setUser(res.data);
       } catch (err) {
         if (err.response && (err.response.status === 401 || err.response.status === 403)) {
           localStorage.removeItem('token');
-          window.location.href = 'http://localhost:5173/login';
+          window.location.href = loginUrl;
         } else {
           setError("Could not fetch user profile. Please try refreshing.");
         }
