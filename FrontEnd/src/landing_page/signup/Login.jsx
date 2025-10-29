@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Mail, Lock } from "lucide-react";
 
 const Login = () => {
-  console.log(import.meta.env.VITE_BACKEND_URL);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
