@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Mail, Lock } from "lucide-react";
 
 const Login = () => {
-  console.log(import.meta.env.VITE_BACKEND_URL)
+  console.log(import.meta.env.VITE_BACKEND_URL);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
@@ -23,7 +23,8 @@ const Login = () => {
       const data = await res.json();
       if (res.ok) {
         alert("Login successful! Redirecting to dashboard...");
-        window.location.href = `http://localhost:5174?token=${data.token}`;
+        localStorage.setItem("token", data.token);
+        window.location.href = "https://zerodha-clone-1-cega.onrender.com";
       } else {
         setError(data.message || "Login failed");
       }
