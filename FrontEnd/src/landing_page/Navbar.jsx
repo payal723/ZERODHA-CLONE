@@ -30,6 +30,11 @@ const Navbar = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  // Redirect function
+  const redirectToDashboard = () => {
+    window.location.href = import.meta.env.VITE_DASHBOARD_URL;
+  };
+
   return (
     <nav className="border-b border-gray-200 bg-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,14 +63,12 @@ const Navbar = () => {
               />
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 border">
-                  <a
-                    href={import.meta.env.VITE_DASHBOARD_URL} // DYNAMIC URL
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  <button
+                    onClick={redirectToDashboard}
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Kite Dashboard
-                  </a>
+                  </button>
                 </div>
               )}
             </div>
@@ -86,18 +89,16 @@ const Navbar = () => {
       <div className={`${isMobileMenuOpen ? "block" : "hidden"} md:hidden`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           {navLinks.map((link) => (
-            <Link key={link.name} to={link.to} className="block px-3 py-2">
+            <Link key={link.name} to={link.to} className="block px-3 py-2 text-gray-700 hover:text-blue-600">
               {link.name}
             </Link>
           ))}
-          <a
-            href={import.meta.env.VITE_DASHBOARD_URL} // DYNAMIC URL
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block px-3 py-2"
+          <button
+            onClick={redirectToDashboard}
+            className="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600"
           >
             Kite Dashboard
-          </a>
+          </button>
         </div>
       </div>
     </nav>
