@@ -24,7 +24,7 @@ const Login = () => {
         alert("Login successful! Redirecting to dashboard...");
         localStorage.setItem("token", data.token);
         setTimeout(() => {
-        window.location.replace("https://zerodha-clone-1-cega.onrender.com");
+          window.location.replace(`https://zerodha-clone-1-cega.onrender.com?token=${data.token}`);
       }, 800);
       } else {
         setError(data.message || "Login failed");
