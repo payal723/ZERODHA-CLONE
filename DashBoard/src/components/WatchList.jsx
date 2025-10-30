@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import axiosInstance from "../utils/axiosConfig"; // Import the configured axios
 import GeneralContext from "./GeneralContext";
 import { BarChart3, ChevronDown, ChevronUp, MoreHorizontal, RefreshCw } from "lucide-react";
 
@@ -8,7 +8,7 @@ const Tooltip = ({ text, children }) => {
   return (
     <div className="relative inline-block" onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>
       {children}
-      {visible && (<span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded-md shadow-md whitespace-nowrap">{text}</span>)}
+      {visible && (<span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded-md shadow-md whitespace-nowrap z-50">{text}</span>)}
     </div>
   );
 };
@@ -58,14 +58,16 @@ const WatchList = () => {
     setLoading(true);
     setError(null);
     try {
-      const backendUrl = import.meta.env.VITE_BACKEND_URL;
-      const response = await axios.get(`${backendUrl}/api/market-data`);
+      // Using axiosInstance which automatically adds token
+      const response = await axiosInstance.get('/api/market-data');
+      
       if (response.data && Array.isArray(response.data)) {
         setWatchlistData(response.data);
       } else {
         setError("No data received from the server.");
       }
     } catch (err) {
+      console.error("Market data fetch error:", err);
       const errorMessage = err.response?.data?.message || "Could not fetch market data.";
       setError(errorMessage);
     } finally {
