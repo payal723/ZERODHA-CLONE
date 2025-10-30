@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -60,7 +59,7 @@ const Navbar = () => {
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 border">
                   <a
-                    href="http://localhost:5174" 
+                    href={import.meta.env.VITE_DASHBOARD_URL} // DYNAMIC URL
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -92,7 +91,7 @@ const Navbar = () => {
             </Link>
           ))}
           <a
-            href="http://localhost:5174" 
+            href={import.meta.env.VITE_DASHBOARD_URL} // DYNAMIC URL
             target="_blank"
             rel="noopener noreferrer"
             className="block px-3 py-2"
