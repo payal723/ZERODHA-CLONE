@@ -15,6 +15,8 @@ const path = require("path");
 
 const app = express();
 app.use(express.json());
+const __dirname = path.resolve();
+
 
 // const allowedOrigins = ["http://localhost:5173", "http://localhost:5174",
 //     "https://zerodha-frontend-xvgh.onrender.com", 
@@ -33,6 +35,19 @@ app.use(express.json());
 //   credentials: true,
 // }));
 app.use(cors()); 
+app.use(
+  cors({
+    origin: [
+      "https://zerodha-frontend-xvgh.onrender.com",
+      "https://zerodha-clone-1-cega.onrender.com",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+app.use("/", express.static(path.join(__dirname, "FrontEnd-dist")));
+app.use("/dashboard", express.static(path.join(__dirname, "dist")));
 
 mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("✅ MongoDB connected!"))
@@ -49,9 +64,6 @@ const authenticateToken = (req, res, next) => {
     next();
   });
 };
-
-app.use("/", express.static(path.join(__dirname, "FrontEnd-dist")));
-app.use("/dashboard", express.static(path.join(__dirname, "dist")));
 
 
 app.post("/signup", async (req, res) => {
