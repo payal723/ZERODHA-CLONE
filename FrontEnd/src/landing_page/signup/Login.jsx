@@ -38,16 +38,17 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data.user));
       }
 
-      // CORRECT: Token ke saath dashboard pe redirect
-      window.location.replace(
-        `https://zerodha-clone-1-cega.onrender.com?token=${data.token}`
-      );
+      setTimeout(() => {
+        window.location.href = 
+          `${import.meta.env.VITE_DASHBOARD_URL}?token=${data.token}`;
+      }, 100);
+
     } else {
-      setError(data.message || "Login failed. Please check your credentials.");
+      setError(data.message || "Login failed.");
     }
   } catch (err) {
     console.error("Login error:", err);
-    setError("Network error. Please check your connection and try again.");
+    setError("Network error. Please try again.");
   } finally {
     setLoading(false);
   }
